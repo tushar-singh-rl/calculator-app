@@ -55,4 +55,4 @@ jobs:
       - name: Restart Spring Boot service
         run: |
           ssh -o StrictHostKeyChecking=no -i key.pem ${{ secrets.DEPLOY_USER }}@${{ secrets.DEPLOY_HOST }} \
-            'sudo systemctl restart spring-boot-app || (pkill -f "java -jar" && nohup java -jar /home/${{ secrets.DEPLOY_USER }}/deployment/*.jar > app.log 2>&1 &)'
+            'sudo systemctl restart spring-boot-app || (pkill -f "java --add-opens java.base/java.lang=ALL-UNNAMED -jar" && nohup java -jar /home/${{ secrets.DEPLOY_USER }}/deployment/*.jar > app.log 2>&1 &)'
